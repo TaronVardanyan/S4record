@@ -1,0 +1,24 @@
+{
+  "name": "S4record",
+  "version": "1.0.0",
+  "description": "Application for screen recording.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TaronVardanyan/S4record.git"
+  },
+  "keywords": [],
+  "author": "Taron Vardanyan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TaronVardanyan/S4record/issues"
+  },
+  "homepage": "https://github.com/TaronVardanyan/S4record#readme",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "tailwindcss": "^3.1.4"
+  }
+}
