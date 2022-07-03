@@ -4,6 +4,8 @@
   "description": "Application for screen recording.",
   "main": "index.js",
   "scripts": {
+    "start": "npm-run-all css tsc",
+    "tsc": "tsc -w",
     "dev": "live-server . --no-css-inject",
     "css": "tailwindcss -i src/tailwind.css -o dist/main.css --watch"
   },
@@ -20,6 +22,10 @@
   "homepage": "https://github.com/TaronVardanyan/S4record#readme",
   "devDependencies": {
     "live-server": "^1.2.2",
-    "tailwindcss": "^3.1.4"
+    "tailwindcss": "^3.1.4",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "npm-run-all": "^4.1.5"
   }
 }
