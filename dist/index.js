@@ -49,8 +49,9 @@ var mixedStream = null;
 var recorder = null;
 var stopButton = document.querySelector('.stop-recording');
 var startButton = document.querySelector('.start-recording');
-var downloadButton = null;
-var recordedVideo = null;
+var downloadButton = document.querySelector('.download-video');
+var recordedVideo = document.querySelector('.recorded-video');
+;
 var chunks = [];
 function setupStream() {
     return __awaiter(this, void 0, void 0, function () {
@@ -94,11 +95,40 @@ function setupVideoFeedback() {
         console.warn('no stream available');
     }
 }
-function handleDataAvailable() {
-    // 24:01
+function handleDataAvailable(e) {
+    chunks.push(e.data);
 }
-function handleStop() {
-    // 24:01
+function handleStop(e) {
+    var blob = new Blob(chunks, {
+        type: 'video/mp4'
+    });
+    chunks = [];
+    if (downloadButton && recordedVideo) {
+        var url = URL.createObjectURL(blob);
+        downloadButton.href = url;
+        downloadButton.download = 'video/mp4';
+        recordedVideo.src = url;
+        recordedVideo.load();
+        recordedVideo.onloadeddata = function () {
+            recordedVideo.play();
+            var rc = document.querySelector('.recorded-video-wrap');
+            if (rc) {
+                rc.classList.remove('hidden');
+                rc.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+            stream === null || stream === void 0 ? void 0 : stream.getTracks().forEach(function (track) { return track.stop(); });
+            audio === null || audio === void 0 ? void 0 : audio.getTracks().forEach(function (track) { return track.stop(); });
+            console.log("Recording has been prepared");
+        };
+    }
+}
+function stopRecording() {
+    recorder === null || recorder === void 0 ? void 0 : recorder.stop();
+    if (startButton && stopButton) {
+        startButton.disabled = false;
+        stopButton.disabled = true;
+    }
+    console.log("Recording has stopped");
 }
 function startRecording() {
     return __awaiter(this, void 0, void 0, function () {
@@ -128,4 +158,5 @@ function startRecording() {
 }
 window.addEventListener('load', function () {
     startButton === null || startButton === void 0 ? void 0 : startButton.addEventListener('click', startRecording);
+    stopButton === null || stopButton === void 0 ? void 0 : stopButton.addEventListener('click', stopRecording);
 });
